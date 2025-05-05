@@ -8,13 +8,12 @@ import {
   HlmMenuComponent,
   HlmMenuGroupComponent,
   HlmMenuItemDirective,
-  HlmMenuItemIconDirective,
   HlmMenuItemSubIndicatorComponent,
   HlmMenuLabelComponent,
   HlmMenuSeparatorComponent,
   HlmMenuShortcutComponent,
-  HlmSubMenuComponent,
 } from '@spartan-ng/ui-menu-helm';
+
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
@@ -27,12 +26,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HlmMenuComponent,
     HlmMenuGroupComponent,
     HlmMenuItemDirective,
-    HlmMenuItemIconDirective,
+    // HlmMenuItemIconDirective,
     HlmMenuItemSubIndicatorComponent,
     HlmMenuLabelComponent,
     HlmMenuSeparatorComponent,
     HlmMenuShortcutComponent,
-    HlmSubMenuComponent,
+    // HlmSubMenuComponent,
 
     NavbarComponent,
   ],
