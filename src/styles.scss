@@ -7,11 +7,11 @@
 @import "tailwindcss/utilities";
 
 body {
-  // @apply bg-gray-300 text-gray-900;
+  @apply text-gray-900;
 }
 
 :root {
-  --font-sans: "";
+  --font-sans: "Inter", sans-serif;
 }
 
 :root {
@@ -65,4 +65,59 @@ body {
   * {
     @apply border-border;
   }
+
+  .text-primary {
+    @apply text-slate-900;
+  }
+  .text-second {
+    @apply text-slate-700;
+  }
+  .text-disabled {
+    @apply text-slate-500;
+  }
+  .text-brand {
+    @apply text-sky-500;
+  }
+
+  .border-primary {
+    @apply border-slate-200;
+  }
+  .border-secondary {
+    @apply border-slate-100;
+  }
+  .border-brand {
+    @apply border-sky-500;
+  }
+}
+
+@layer utilities {
+  // .text-primary {
+  //   @apply text-slate-900;
+  // }
+  // .text-second {
+  //   @apply text-slate-700;
+  // }
+  // .text-disabled {
+  //   @apply text-slate-500;
+  // }
+  // .text-brand {
+  //   @apply text-sky-500;
+  // }
+
+  // .border-primary {
+  //   @apply border-slate-200;
+  // }
+  // .border-secondary {
+  //   @apply border-slate-100;
+  // }
+  // .border-brand {
+  //   @apply border-sky-500;
+  // }
+}
+
+.auth-bg {
+  background-image: url("assets/images/auth-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
