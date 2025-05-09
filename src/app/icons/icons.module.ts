@@ -5,6 +5,8 @@ import {
   remixArrowLeftLine,
   remixArrowRightLine,
   remixExpandUpDownLine,
+  remixGlobalFill,
+  remixLinkedinFill,
   remixLogoutCircleLine,
   remixLogoutCircleRLine,
   remixSettingsLine,
@@ -25,6 +27,8 @@ import {
       remixLogoutCircleLine,
       remixLogoutCircleRLine,
       remixSparkling2Fill,
+      remixGlobalFill,
+      remixLinkedinFill,
     }),
   ],
 

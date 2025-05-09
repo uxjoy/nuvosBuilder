@@ -1,43 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
-import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import {
-  HlmMenuComponent,
-  HlmMenuGroupComponent,
-  HlmMenuItemDirective,
-  HlmMenuItemSubIndicatorComponent,
-  HlmMenuLabelComponent,
-  HlmMenuSeparatorComponent,
-  HlmMenuShortcutComponent,
-} from '@spartan-ng/ui-menu-helm';
-
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    HlmButtonDirective,
-    BrnMenuTriggerDirective,
-
-    HlmMenuComponent,
-    HlmMenuGroupComponent,
-    HlmMenuItemDirective,
-    // HlmMenuItemIconDirective,
-    HlmMenuItemSubIndicatorComponent,
-    HlmMenuLabelComponent,
-    HlmMenuSeparatorComponent,
-    HlmMenuShortcutComponent,
-    // HlmSubMenuComponent,
-
-    NavbarComponent,
-  ],
+  standalone: true,
+  imports: [RouterOutlet, LayoutComponent, LayoutComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'nuvos-presentations';
+  title = 'Nuvos Presentations';
 }
