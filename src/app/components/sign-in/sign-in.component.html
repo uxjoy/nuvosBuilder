@@ -1,1 +1,155 @@
-<p>sign-in works!</p>
+<div class="grid lg:grid-cols-2 w-screen h-screen bg-slate-50">
+  <div class="left w-full h-full p-20 auth-bg flex items-end bg-slate-50">
+    <img src="assets/logo.svg" class="h-10" alt="logo" />
+  </div>
+
+  <div class="right w-full">
+    <div class="flex flex-col justify-center items-center h-screen">
+      <div
+        class="w-[450px] p-12 space-y-8 bg-white rounded-2xl border border-slate-200 shadow-lg shadow-slate-900/5"
+      >
+        <div class="content space-y-1">
+          <h1 class="text-2xl text-slate-900 font-semibold">
+            Hi 👋, Welcome Back
+          </h1>
+          <p class="text-slate-800">Sign in to continue...</p>
+        </div>
+
+        <form
+          #signinForm="ngForm"
+          (ngSubmit)="onSubmit(signinForm)"
+          class="space-y-4"
+        >
+          <div class="form-group space-y-1.5">
+            <label for="email" hlmLabel
+              >Email
+              <span class="text-red-500">*</span>
+            </label>
+
+            <input
+              hlmInput
+              type="email"
+              name="email"
+              #email="ngModel"
+              [(ngModel)]="user.email"
+              [pattern]="emailPattern"
+              required
+            />
+
+            <div class="hint-text" *ngIf="email?.invalid && email?.touched">
+              <hlm-hint
+                *ngIf="email?.errors?.['required']"
+                class="text-red-600 text-xs"
+                >Email is required!
+              </hlm-hint>
+
+              <hlm-hint
+                *ngIf="email?.errors?.['pattern']"
+                class="text-red-600 text-xs"
+                >Please enter a valid email address!
+              </hlm-hint>
+            </div>
+          </div>
+
+          <div class="form-group space-y-1.5">
+            <label for="password" hlmLabel (click)="showPasswordToggle()"
+              >Password
+              <span class="text-red-500">*</span>
+            </label>
+
+            <div class="input-wrapper relative">
+              <input
+                hlmInput
+                [type]="showPassword ? 'text' : 'password'"
+                name="password"
+                minlength="8"
+                #password="ngModel"
+                [(ngModel)]="user.password"
+                required
+              />
+
+              <button
+                class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-10 flex items-center justify-center rounded"
+                (click)="showPasswordToggle()"
+                type="button"
+              >
+                <ng-icon
+                  [name]="showPassword ? 'remixEyeLine' : 'remixEyeOffLine'"
+                  size="20"
+                  [ngClass]="{
+                    'text-slate-900': showPassword,
+                    'text-slate-400': !showPassword
+                  }"
+                ></ng-icon>
+              </button>
+            </div>
+
+            <hlm-hint
+              class="text-red-600 text-xs"
+              *ngIf="password?.invalid && password?.touched"
+            >
+              <p *ngIf="password?.errors?.['required']">
+                Password is required.
+              </p>
+            </hlm-hint>
+          </div>
+
+          <div
+            *ngIf="errorMessage"
+            hlmAlert
+            variant="destructive"
+            class="text-sm bg-red-50"
+          >
+            <ng-icon hlm hlmAlertIcon name="remixAlertLine" />
+            <!-- <h4 hlmAlertTitle>Unexpected Error</h4> -->
+            <p hlmAlertDesc>The email or password you entered incorrect</p>
+          </div>
+
+          <div class="actions space-y-5">
+            <button class="w-full mt-1" type="submit" hlmBtn>Sign In</button>
+
+            <div
+              class="flex items-center justify-center gap-3 text-center text-sm text-slate-600"
+            >
+              <div class="h-[1px] bg-slate-200 grow"></div>
+              <div>Or, Sign In with</div>
+              <div class="h-[1px] bg-slate-200 grow"></div>
+            </div>
+
+            <div class="flex items-center justify-center gap-3">
+              <button
+                type="button"
+                class="w-full h-11"
+                variant="outline"
+                hlmBtn
+              >
+                <img src="assets/google.svg" alt="google" />
+              </button>
+              <button
+                type="button"
+                class="w-full h-11"
+                variant="outline"
+                hlmBtn
+              >
+                <img src="assets/facebook.svg" alt="apple" />
+              </button>
+              <button
+                type="button"
+                class="w-full h-11"
+                variant="outline"
+                hlmBtn
+              >
+                <img src="assets/linkedin.svg" alt="apple" />
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <p class="mt-6 text-center text-slate-600 text-sm">
+        Don't have an account?
+        <a routerLink="/sign-up" class="text-slate-900 font-medium">Sign Up</a>
+      </p>
+    </div>
+  </div>
+</div>

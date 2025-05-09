@@ -6,10 +6,12 @@
         <!-- <div class="divider w-[2px] h-6 bg-slate-200"></div> -->
       </div>
 
+      @if (!loggedinUser) {
       <div class="right flex items-center gap-4">
-        <!-- <div class="divider w-[2px] h-6 bg-slate-200"></div> -->
-        <a routerLink="/sign-up" size="sm" variant="ghost" hlmBtn>Sign Up</a>
-
+        <a routerLink="/sign-in" size="sm" variant="default" hlmBtn>Sign In</a>
+      </div>
+      } @else {
+      <div class="right flex items-center gap-4">
         <button class="gap-1.5" size="sm" variant="gradient" hlmBtn>
           <ng-icon class="text-indigo-500" name="remixSparkling2Fill" />
           AI Chatbot
@@ -58,7 +60,7 @@
 
             <hlm-menu-separator />
 
-            <button class="gap-2" hlmMenuItem>
+            <button class="gap-2" (click)="logout()" hlmMenuItem>
               <ng-icon name="remixLogoutCircleRLine" />
 
               Sign Out
@@ -67,6 +69,7 @@
           </hlm-menu>
         </ng-template>
       </div>
+      }
     </div>
   </div>
 </div>

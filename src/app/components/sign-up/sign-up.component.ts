@@ -1,18 +1,19 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { IconsModule } from '../../icons/icons.module';
+import { UserService } from '../../services/user.service';
 
+interface User {
+  name: string;
+  email: string;
+  password: string;
+}
 @Component({
   selector: 'app-sign-up',
   standalone: true,
@@ -20,59 +21,63 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
     HlmButtonDirective,
     HlmInputDirective,
     HlmLabelDirective,
-    ReactiveFormsModule,
     HlmFormFieldModule,
-    CommonModule,
+
     RouterLink,
+    FormsModule,
+    IconsModule,
+    NgClass,
+    CommonModule,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
-  userForm = new FormGroup({
-    fullName: new FormControl('', [Validators.required]),
-    // lastName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-      this.passwordStrengthValidator,
-    ]),
-  });
+  showPassword: boolean = false;
+  emailPattern = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
+  passwordPattern: any =
+    '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$'; // At
+  // least 8 characters, at least one letter and one number
 
-  // firstName = new FormControl('nuvos123');
-  // lastName: string = 'Rahman';
-  // email: string = 'joy@email.com';
-  // password: string = 'nuvos123';
+  constructor(private router: Router, private userService: UserService) {}
 
-  onSubmit() {
-    console.log(this.userForm.value);
+  user: User = {
+    name: '',
+    email: '',
+    password: '',
+  };
+
+  ngOnInit(): void {
+    const storedUser: string | null = localStorage.getItem('user');
+
+    if (storedUser) {
+      this.router.navigate(['/']);
+    }
   }
 
-  get fullName() {
-    return this.userForm.get('fullName');
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const userExists = users.find(
+        (user: User) => user.email === this.user.email
+      );
+      if (userExists) {
+        console.log('User already exists');
+        return;
+      }
+      users.push(this.user);
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('loggedInUser', JSON.stringify(this.user));
+
+      this.router.navigate(['/']);
+
+      console.log('Signup success:', this.user);
+    } else {
+      console.log('Form is invalid or passwords don’t match', form);
+    }
   }
 
-  // get lastName() {
-  //   return this.userForm.get('lastName');
-  // }
-
-  get email() {
-    return this.userForm.get('email');
-  }
-
-  get password() {
-    return this.userForm.get('password');
-  }
-
-  // Custom validator (uppercase letter + number required)
-  passwordStrengthValidator(control: FormControl): ValidationErrors | null {
-    const value = control.value || '';
-    const hasUppercase = /[A-Z]/.test(value);
-    const hasDigit = /\d/.test(value);
-    const specialChar = /[!@#$%^&*]/.test(value);
-
-    const valid = hasUppercase && hasDigit && specialChar;
-    return valid ? null : { weakPassword: true };
+  showPasswordToggle() {
+    this.showPassword = !this.showPassword;
   }
 }

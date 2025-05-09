@@ -1,10 +1,12 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgIconsModule } from '@ng-icons/core';
 import {
+  remixAlertLine,
   remixArrowLeftLine,
   remixArrowRightLine,
   remixExpandUpDownLine,
+  remixEyeLine,
+  remixEyeOffLine,
   remixGlobalFill,
   remixLinkedinFill,
   remixLogoutCircleLine,
@@ -17,7 +19,6 @@ import {
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
     NgIconsModule.withIcons({
       remixArrowRightLine,
       remixArrowLeftLine,
@@ -29,6 +30,9 @@ import {
       remixSparkling2Fill,
       remixGlobalFill,
       remixLinkedinFill,
+      remixEyeLine,
+      remixEyeOffLine,
+      remixAlertLine,
     }),
   ],
 

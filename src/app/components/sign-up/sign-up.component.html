@@ -1,4 +1,4 @@
-<div class="grid grid-cols-2 w-screen h-screen bg-slate-50">
+<div class="grid lg:grid-cols-2 w-screen h-screen bg-slate-50">
   <div class="left w-full h-full p-20 auth-bg flex items-end bg-slate-50">
     <img src="assets/logo.svg" class="h-10" alt="logo" />
   </div>
@@ -15,26 +15,30 @@
           <p class="text-slate-800">Sign Up to continue...</p>
         </div>
 
-        <form class="space-y-4" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <form
+          #signupForm="ngForm"
+          (ngSubmit)="onSubmit(signupForm)"
+          class="space-y-4"
+        >
           <div class="form-group space-y-1.5">
-            <label htmlFor="fullName" hlmLabel
+            <label for="name" hlmLabel
               >Full Name
-              <span *ngIf="fullName?.hasError('required')" class="text-red-500"
-                >*</span
-              >
+              <span class="text-red-500">*</span>
             </label>
 
-            <input hlmInput name="fullName" formControlName="fullName" />
+            <input
+              hlmInput
+              type="text"
+              name="name"
+              #name="ngModel"
+              [(ngModel)]="user.name"
+              required
+            />
 
-            <div
-              class="hint-text"
-              *ngIf="
-                fullName?.invalid && (fullName?.dirty || fullName?.touched)
-              "
-            >
+            <div class="hint-text" *ngIf="name?.invalid && name?.touched">
               <hlm-hint
-                *ngIf="fullName?.hasError('required')"
-                class="text-red-600"
+                *ngIf="name?.errors?.['required']"
+                class="text-red-600 text-xs"
               >
                 Name is required!
               </hlm-hint>
@@ -42,44 +46,73 @@
           </div>
 
           <div class="form-group space-y-1.5">
-            <label htmlFor="email" hlmLabel
+            <label for="email" hlmLabel
               >Email
-              <span *ngIf="email?.hasError('required')" class="text-red-500"
-                >*</span
-              >
+              <span class="text-red-500">*</span>
             </label>
 
-            <input hlmInput formControlName="email" name="email" />
+            <input
+              hlmInput
+              type="email"
+              name="email"
+              #email="ngModel"
+              [(ngModel)]="user.email"
+              [pattern]="emailPattern"
+              required
+            />
 
-            <div
-              class="hint-text"
-              *ngIf="email?.invalid && (email?.dirty || email?.touched)"
-            >
-              <hlm-hint *ngIf="email?.hasError('required')" class="text-red-600"
+            <div class="hint-text" *ngIf="email?.invalid && email?.touched">
+              <hlm-hint
+                *ngIf="email?.errors?.['required']"
+                class="text-red-600 text-xs"
                 >Email is required!
               </hlm-hint>
 
-              <hlm-hint *ngIf="email?.hasError('email')" class="text-red-600"
+              <hlm-hint
+                *ngIf="email?.errors?.['pattern']"
+                class="text-red-600 text-xs"
                 >Please enter a valid email address
               </hlm-hint>
             </div>
           </div>
 
           <div class="form-group space-y-1.5">
-            <label htmlFor="password" hlmLabel
+            <label for="password" hlmLabel (click)="showPasswordToggle()"
               >Password
-              <span *ngIf="password?.hasError('required')" class="text-red-500"
-                >*</span
-              >
+              <span class="text-red-500">*</span>
             </label>
 
-            <input hlmInput formControlName="password" name="password" />
+            <div class="input-wrapper relative">
+              <input
+                hlmInput
+                [type]="showPassword ? 'text' : 'password'"
+                name="password"
+                minlength="8"
+                #password="ngModel"
+                [(ngModel)]="user.password"
+                [pattern]="passwordPattern"
+                required
+              />
+
+              <button
+                class="absolute right-0 top-1/2 -translate-y-1/2 w-12 h-10 flex items-center justify-center rounded"
+                (click)="showPasswordToggle()"
+                type="button"
+              >
+                <ng-icon
+                  [name]="showPassword ? 'remixEyeLine' : 'remixEyeOffLine'"
+                  size="20"
+                  [ngClass]="{
+                    'text-slate-900': showPassword,
+                    'text-slate-400': !showPassword
+                  }"
+                ></ng-icon>
+              </button>
+            </div>
 
             <div
-              class="hint-text"
-              *ngIf="
-                password?.invalid && (password?.dirty || password?.touched)
-              "
+              class="text-red-5"
+              *ngIf="password?.invalid && password?.touched"
             >
               <!-- <hlm-hint
                 *ngIf="password?.hasError('required')"
@@ -93,68 +126,65 @@
                 >Must be at least 8 characters
               </hlm-hint> -->
 
-              <hlm-hint
-                *ngIf="
-                  password?.invalid && (password?.dirty || password?.touched)
-                "
-              >
+              <hlm-hint class="text-red-600 text-xs">
                 <p *ngIf="password?.errors?.['required']">
                   Password is required.
                 </p>
-                <p *ngIf="password?.errors?.['minlength']">
+                <!-- <p *ngIf="password?.errors?.['minlength']">
                   Password must be at least 8 characters.
-                </p>
-                <p *ngIf="password?.errors?.['weakPassword']">
-                  Password must contain at least one uppercase letter and one
-                  number.
-                </p>
+                </p> -->
               </hlm-hint>
 
-              <!-- <hlm-hint
+              <hlm-hint
                 class="text-red-600 text-xs flex flex-wrap gap-1.5 capitalize pt-2"
                 *ngIf="password?.hasError('pattern')"
               >
                 <span
-                  class="block px-1.5 py-0.5 rounded bg-red-50"
-                  [ngClass]="{
-                    'text-emerald-600 bg-emerald-50':
-                      password?.value?.match('^(?=.*[A-Z])')
-                  }"
-                  >one uppercase letter</span
-                >
+                  class="block px-1.5 py-0.5 rounded"
+                  [ngClass]="
+                    password?.value?.match('^(?=.*[A-Z])')
+                      ? 'text-emerald-600 bg-emerald-50'
+                      : 'bg-red-50'
+                  "
+                  >one uppercase
+                </span>
                 <span
-                  class="block px-1.5 py-0.5 rounded bg-red-50"
-                  [ngClass]="{
-                    'text-emerald-600 bg-emerald-50':
-                      password?.value?.match('(?=.*[a-z])')
-                  }"
-                  >one lowercase letter</span
-                >
+                  class="block px-1.5 py-0.5 rounded"
+                  [ngClass]="
+                    password?.value?.match('(?=.*[a-z])')
+                      ? 'text-emerald-600 bg-emerald-50'
+                      : 'bg-red-50'
+                  "
+                  >one lowercase
+                </span>
                 <span
-                  class="block px-1.5 py-0.5 rounded bg-red-50"
-                  [ngClass]="{
-                    'text-emerald-600 bg-emerald-50':
-                      password?.value?.match('(.*[0-9].*)')
-                  }"
-                  >one digit</span
-                >
+                  class="block px-1.5 py-0.5 rounded"
+                  [ngClass]="
+                    password?.value?.match('(.*[0-9].*)')
+                      ? 'text-emerald-600 bg-emerald-50'
+                      : 'bg-red-50'
+                  "
+                  >one digit
+                </span>
                 <span
-                  class="block px-1.5 py-0.5 rounded bg-red-50"
-                  [ngClass]="{
-                    'text-emerald-600 bg-emerald-50':
-                      password?.value?.match('(?=.*[!@#$%^&*])')
-                  }"
-                  >one special character</span
-                >
+                  class="block px-1.5 py-0.5 rounded"
+                  [ngClass]="
+                    password?.value?.match('(?=.*[!@#$%^&*])')
+                      ? 'text-emerald-600 bg-emerald-50'
+                      : 'bg-red-50'
+                  "
+                  >one special character
+                </span>
                 <span
-                  class="block px-1.5 py-0.5 rounded bg-red-50"
-                  [ngClass]="{
-                    'text-emerald-600 bg-emerald-50':
-                      password?.value?.match('.{8,}')
-                  }"
-                  >8 characters long</span
-                >
-              </hlm-hint> -->
+                  class="block px-1.5 py-0.5 rounded"
+                  [ngClass]="
+                    password?.value?.match('.{8,}')
+                      ? 'text-emerald-600 bg-emerald-50'
+                      : 'bg-red-50'
+                  "
+                  >Min. 8 characters
+                </span>
+              </hlm-hint>
             </div>
           </div>
 
@@ -162,10 +192,9 @@
             <button
               class="w-full mt-1"
               type="submit"
-              [disabled]="userForm.invalid"
+              [disabled]="signupForm.invalid"
               hlmBtn
             >
-              <!-- (onclick)="setValue()" -->
               Sign Up
             </button>
 
