@@ -5,7 +5,6 @@ import { Router, RouterLink } from '@angular/router';
 import {
   HlmAlertDirective,
   HlmAlertIconDirective,
-  HlmAlertTitleDirective,
 } from '@spartan-ng/ui-alert-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmHintDirective } from '@spartan-ng/ui-formfield-helm';
@@ -22,7 +21,6 @@ import { IconsModule } from '../../icons/icons.module';
     HlmHintDirective,
     HlmAlertDirective,
     HlmAlertIconDirective,
-    HlmAlertTitleDirective,
 
     FormsModule,
     IconsModule,

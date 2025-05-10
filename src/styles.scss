@@ -7,7 +7,7 @@
 @tailwind utilities;
 
 body {
-  @apply text-gray-900;
+  @apply text-gray-900 bg-slate-50;
 }
 
 :root {
@@ -94,7 +94,7 @@ body {
   }
 
   button {
-    @apply cursor-pointer;
+    cursor: pointer !important;
   }
 }
 

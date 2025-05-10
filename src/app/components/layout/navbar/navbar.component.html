@@ -8,7 +8,14 @@
 
       @if (!loggedinUser) {
       <div class="right flex items-center gap-4">
-        <a routerLink="/sign-in" size="sm" variant="default" hlmBtn>Sign In</a>
+        <a
+          routerLink="/sign-in"
+          size="default"
+          variant="default"
+          class="rounded-lg"
+          hlmBtn
+          >Sign In</a
+        >
       </div>
       } @else {
       <div class="right flex items-center gap-4">
@@ -30,32 +37,39 @@
               alt="spartan logo. Resembling a spartanic shield"
               hlmAvatarImage
             />
-            <span class="text-white bg-destructive" hlmAvatarFallback>JS</span>
+            <span class="text-white bg-destructive uppercase" hlmAvatarFallback>
+              {{ loggedinUser.name[0] }}
+            </span>
           </hlm-avatar>
 
-          Jeremy Serapio
+          {{ loggedinUser.name }}
 
           <ng-icon name="remixExpandUpDownLine" />
         </button>
 
         <ng-template #menu>
           <hlm-menu class="min-w-[200px]">
-            <hlm-menu-label>My Account</hlm-menu-label>
+            <!-- <div class="text-sm py-2 px-3">
+              <p>{{ loggedinUser.name }}</p>
+              <p class="text-xs text-slate-700">{{ loggedinUser.email }}</p>
+            </div> -->
 
-            <hlm-menu-separator />
+            <!-- <hlm-menu-label>My Account</hlm-menu-label> -->
+
+            <!-- <hlm-menu-separator /> -->
 
             <hlm-menu-group>
-              <button class="gap-2" hlmMenuItem>
+              <a routerLink="/profile" class="gap-2" hlmMenuItem>
                 <ng-icon name="remixUserLine" />
                 Profile
                 <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
-              </button>
-              <button class="gap-2" hlmMenuItem>
+              </a>
+              <!-- <button class="gap-2" hlmMenuItem>
                 <ng-icon name="remixSettingsLine" />
 
                 Settings
                 <hlm-menu-shortcut>⇧⌘S</hlm-menu-shortcut>
-              </button>
+              </button> -->
             </hlm-menu-group>
 
             <hlm-menu-separator />
