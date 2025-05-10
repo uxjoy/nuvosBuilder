@@ -13,7 +13,6 @@ import {
   HlmMenuComponent,
   HlmMenuGroupComponent,
   HlmMenuItemDirective,
-  HlmMenuLabelComponent,
   HlmMenuSeparatorComponent,
   HlmMenuShortcutComponent,
 } from '@spartan-ng/ui-menu-helm';
@@ -24,7 +23,6 @@ import { UserService } from '../../../services/user.service';
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    // BrnAvatarComponent,
     HlmAvatarImageDirective,
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
@@ -33,12 +31,9 @@ import { UserService } from '../../../services/user.service';
     HlmMenuComponent,
     HlmMenuGroupComponent,
     HlmMenuItemDirective,
-    // HlmMenuItemIconDirective,
-    // HlmMenuItemSubIndicatorComponent,
-    HlmMenuLabelComponent,
+
     HlmMenuSeparatorComponent,
     HlmMenuShortcutComponent,
-    // HlmSubMenuComponent,
     BrnMenuTriggerDirective,
 
     IconsModule,

@@ -12,7 +12,7 @@ export class UserService {
 
     if (storedUser) {
       const userInfo = JSON.parse(storedUser);
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
 
       console.log(userInfo);
       return userInfo;
