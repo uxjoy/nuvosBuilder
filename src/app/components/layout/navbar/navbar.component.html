@@ -1,10 +1,10 @@
 <div class="navbar py-4 border-b border-slate-200 bg-white">
   <div class="container mx-auto">
     <div class="flex justify-between items-center">
-      <div class="left flex items-center gap-4">
+      <a routerLink="/" class="left flex items-center gap-4">
         <img src="/assets/logo.svg" alt="Logo" />
         <!-- <div class="divider w-[2px] h-6 bg-slate-200"></div> -->
-      </div>
+      </a>
 
       @if (!loggedinUser) {
       <div class="right flex items-center gap-4">
@@ -59,17 +59,21 @@
             <!-- <hlm-menu-separator /> -->
 
             <hlm-menu-group>
-              <a routerLink="/profile" class="gap-2" hlmMenuItem>
+              <a routerLink="/profile/edit" class="gap-2" hlmMenuItem>
                 <ng-icon name="remixUserLine" />
                 Profile
                 <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
               </a>
-              <!-- <button class="gap-2" hlmMenuItem>
+              <!-- <a
+                routerLink="/profile/change-password"
+                class="gap-2"
+                hlmMenuItem
+              >
                 <ng-icon name="remixSettingsLine" />
 
-                Settings
+                Change Password
                 <hlm-menu-shortcut>⇧⌘S</hlm-menu-shortcut>
-              </button> -->
+              </a> -->
             </hlm-menu-group>
 
             <hlm-menu-separator />
