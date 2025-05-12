@@ -22,8 +22,9 @@
         >
           <div class="form-group space-y-1.5">
             <label for="email" hlmLabel
-              >Email
+              >Email:
               <span class="text-red-500">*</span>
+              <span class="text-xs"> nuvos&#64;email.com </span>
             </label>
 
             <input
@@ -33,6 +34,7 @@
               #email="ngModel"
               [(ngModel)]="user.email"
               [pattern]="emailPattern"
+              placeholder="nuvos@email.com"
               required
             />
 
@@ -53,8 +55,9 @@
 
           <div class="form-group space-y-1.5">
             <label for="password" hlmLabel (click)="showPasswordToggle()"
-              >Password
+              >Password:
               <span class="text-red-500">*</span>
+              <span class="text-xs"> Nuvos&#64;123 </span>
             </label>
 
             <div class="input-wrapper relative">
@@ -65,6 +68,7 @@
                 minlength="8"
                 #password="ngModel"
                 [(ngModel)]="user.password"
+                placeholder="Nuvos@123"
                 required
               />
 

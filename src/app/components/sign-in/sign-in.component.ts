@@ -73,7 +73,7 @@ export class SignInComponent {
         }, 3000); // clear message after 3 seconds
       }
     } else {
-      alert('Form is invalid');
+      alert('Form is invalid\nEmail: nuvos@email.com\nPassword: Nuvos@123');
     }
   }
 }
