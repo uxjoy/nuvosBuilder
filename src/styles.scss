@@ -90,11 +90,12 @@ body {
   }
 
   a {
-    @apply cursor-pointer;
+    cursor: pointer !important;
   }
 
   button {
     cursor: pointer !important;
+    outline: none !important;
   }
 }
 
